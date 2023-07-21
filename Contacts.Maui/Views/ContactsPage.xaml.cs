@@ -15,9 +15,7 @@ public partial class ContactsPage : ContentPage
     {
         base.OnAppearing();
 
-        var contacts = new ObservableCollection<Contact>(ContactRepository.GetContacts());
-
-        listContacts.ItemsSource = contacts;
+        LoadContacts();
     }
 
     async void listContacts_ItemSelected(System.Object sender, Microsoft.Maui.Controls.SelectedItemChangedEventArgs e)
@@ -33,4 +31,26 @@ public partial class ContactsPage : ContentPage
     {
         listContacts.SelectedItem = null;
 	}
+
+    void btnAdd_Clicked(System.Object sender, System.EventArgs e)
+    {
+        Shell.Current.GoToAsync(nameof(AddContactPage));
+    }
+
+    void Delete_Clicked(System.Object sender, System.EventArgs e)
+    {
+        var menuItem = sender as MenuItem;
+        var contact = menuItem.CommandParameter as Contact;
+
+        ContactRepository.DeleteContact(contact);
+
+        LoadContacts();
+    }
+
+    void LoadContacts()
+    {
+        var contacts = new ObservableCollection<Contact>(ContactRepository.GetContacts());
+
+        listContacts.ItemsSource = contacts;
+    }
 }

@@ -3,19 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contacts.Maui.Views.ContactsPage"
              Title="Contacts">
-    <ListView
-        Background="Transparent"
-        x:Name="listContacts"
-        RowHeight="65"
-        ItemSelected="listContacts_ItemSelected"
-        ItemTapped="listContacts_ItemTapped"
+    <Grid
+        RowDefinitions="*, 76, 16"
+        ColumnDefinitions="*"
     >
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell
-                    Text="{Binding Name}"
-                    Detail="{Binding Email}"/>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        <ListView
+            Grid.Row="0"
+            Grid.Column="0"
+            Background="Transparent"
+            x:Name="listContacts"
+            RowHeight="65"
+            ItemSelected="listContacts_ItemSelected"
+            ItemTapped="listContacts_ItemTapped"
+        >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell
+                        Text="{Binding Name}"
+                        Detail="{Binding Email}">
+                        <TextCell.ContextActions>
+                            <MenuItem
+                                Text="Delete"
+                                Clicked="Delete_Clicked"
+                                CommandParameter="{Binding .}"
+                                />
+
+                        </TextCell.ContextActions>
+
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="0"
+            x:Name="btnAdd"
+            Text="Add Contact"
+            Clicked="btnAdd_Clicked"
+            Margin="16"
+            />
+    </Grid>
 </ContentPage>
