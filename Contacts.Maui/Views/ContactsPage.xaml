@@ -4,11 +4,18 @@
              x:Class="Contacts.Maui.Views.ContactsPage"
              Title="Contacts">
     <Grid
-        RowDefinitions="*, 76, 16"
+        RowDefinitions="50, *, 76, 16"
         ColumnDefinitions="*"
     >
-        <ListView
+        <SearchBar
             Grid.Row="0"
+            Grid.Column="0"
+            x:Name="searchBar"
+            Placeholder="Search Contact"
+            TextChanged="SearchBar_TextChanged"
+            />
+        <ListView
+            Grid.Row="1"
             Grid.Column="0"
             Background="Transparent"
             x:Name="listContacts"
@@ -36,7 +43,7 @@
         </ListView>
 
         <Button
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="0"
             x:Name="btnAdd"
             Text="Add Contact"
